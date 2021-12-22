@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.E Tracker</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bars.css') }}">
+    <link rel="stylesheet"type= "text/css" href= "{{ url_for('static',filename='multi.css') }}">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body>
+ <!-- Navbar Section -->
+ <nav class="navbar">
+  <div class="navbar__container">
+    <a href="#home" id="navbar__logo">B.E TRACKER</a>
+    <div class="navbar__toggle" id="mobile-menu">
+      <span class="bar"></span>
+       <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    
+    <ul class="navbar__menu">
+      <li class="navbar__item">
+        <a href="#home" class="navbar__links" id="home-page">Home</a>
+      </li>
+      <li class="navbar__item">
+        <a href="#results" class="navbar__links" id="results-page">Results</a>
+      </li>
+      <li class="navbar__item">
+        <a href="#recommendations" class="navbar__links" id="recommendations-page"
+          >Recommendations</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav> 
+<!-- End Navbar Section-->
+
+    <!-- Hero Section -->
+    <div class="bg_img  img1">
+    <div class="hero" id="home">
+    
+      <div class="hero__container">
+        <h1 class="hero__heading">Binge Eating Disorder <span>Words I don't have..</span></h1>
+        <p class="hero__description">I don't know..something nice</p>
+
+      <!-- button for log in to pop up -->
+      <button class="start__btn" onclick="getstarted()"><span></span>Get Started</button>
+      
+      <div class="form-box" id="my__form">
+      
+        <div class="button-box">
+            <div id="btn"></div>
+        <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+        <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        </div>
+       
+        <form id="login" class="input-grp">                                        <!--log in -->
+            <input type="text" class="input-field" placeholder="User Id" required>
+            <input type="password" class="input-field" placeholder="Password" required>
+           
+           <div class="checkbox-container">
+            <input type="checkbox" id="cb1">
+            <label for="cb1">Remember Password</label>
+          </div>
+          <button class="continue__btn" onclick="Continue()">Log In</button>
+          <button type="submit" class="submit-btn">Log In</button>
+   
+        </form>
+        <form id="register" class="input-grp">                                       <!-- Register Form-->
+            <input type="text" class="input-field" placeholder="User Id" required>
+            <input type="email" class="input-field" placeholder="Email Id" required>
+            <input type="password" class="input-field" placeholder="Password" required>
+           
+            <div class="checkbox-container">
+              <input type="checkbox" id="cb1">
+              <label for="cb1">I agree to the terms & conditions</label>
+            </div>
+                <button type="submit" class="submit-btn">Register</button>
+        </form>
+         
+        </div>
+       
+    <!-- BMI Form-->
+        <div class="bmi-box" id="my__bmi">
+   
+  <h2>BMI Calculator</h2>
+  <p class="text">Height</p>
+  <input type="text" id="h">
+  <p class="text">Weight</p>
+  <input type="text" id="w">
+  <p id="result"></p>
+  
+  <button id="bmi-btn" onclick="BMI()">Calculate</button>
+  <p id="info">Please enter your height (cm) and weight (kg)</p> 
+  <button class="forward__btn" onclick="forward()">Next</button>
+  </div>  
+
+   <!-- Multi-step form -->   
+      <div class="data-box" id="my__data">
+        <header>User Details</header>
+        <div class="progress-bar">    <!-- Step progress bar-->
+           <div class="step">
+              <p>
+                BMI
+              </p>
+              <div class="bullet">
+                 <span>1</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+                Calories
+              </p>
+              <div class="bullet">
+                 <span>2</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+               Calories
+              </p>
+              <div class="bullet">
+                 <span>3</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+                Mood
+              </p>
+              <div class="bullet">
+                 <span>4</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+        </div>
+        <div class="form-outer">  
+          <!-- Form Beginning-->          
+           <form action="{{ url_for('predict')}}"method="POST">
+              <div class="page slide-page">
+                 <div class="title">
+                    BMI:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                      PLease Enter your BMI
+                    </div>
+                    <input type="text" name="BMI" placeholder="ENTER BMI" required="required" />
+                 </div>
+                
+              
+                 <div class="field">
+                    <button class="firstNext next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                    Calories Intake:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                       Please enter daily calorie intake
+                    </div>
+                    <input type="text" name="calories" placeholder="Calories Taken" required="required" />
+                 </div>
+                 <div class="field btns">
+                    <button class="prev-1 prev">Previous</button>
+                    <button class="next-1 next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                    Calories Burnt:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                       Please enter daily calories burnt
+                    </div>
+                    <input type="text" name="calories_burnt" placeholder="Calories Burnt" required="required" />
+                 </div>
+                 <div class="field btns">
+                    <button class="prev-2 prev">Previous</button>
+                    <button class="next-2 next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                 Enter Your Stress Level:
+                 </div>
+                 <div class="field">
+                   <div class="label">
+                    <p>100(Low)200 (Mild) 300(High) 400(Extreme)<p>
+                   </div>
+                   <input type="text" name="	Stress Levels" placeholder="Stress Level" required="required" />
+                </div>
+                
+                 <div class="field btns">
+                    <button class="prev-3 prev">Previous</button>
+                   
+                    <button type="submit" class="predict__btn" onclick="predict()">Predict</button>
+                 </div>
+              </div>
+           </form>
+           
+        </div>
+     </div>  
+
+
+
+
+
+      </div>
+    </div>
+  </div>  
+
+    <!-- Results Section -->
+    <div class="bg_img  img1">
+    <div class="main" id="results">
+       
+      <div class="main__container">
+      <!-- <div class="main__img--container"> 
+          <h1 id="info">Results: {{prediction_text}}</h1>
+        </div> -->
+       
+        
+
+       <!-- LEVELS PROGRESS BARS-->
+       <div class="container">
+        <h2 id="info">Results: {{prediction_text}}</h2>
+
+        <div class="skill">
+            <p>Level 1: Normal </p>
+            <div class="skill-bar skill1">
+                <span class="skill-count">25%</span>
+            </div>
+        </div>
+        <!-- skill 1-->
+        <div class="skill">
+            <p>Level 2: Mild Binge Eating</p>
+            <div class="skill-bar skill2">
+                <span class="skill-count">50%</span>
+            </div>
+        </div>
+        <!-- skill 2-->
+        <div class="skill">
+            <p>Level 3: Binge Eating</p>
+            <div class="skill-bar skill3">
+                <span class="skill-count">75%</span>
+            </div>
+        </div>
+        <!-- skill 3-->
+        <div class="skill">
+            <p>Level 4: Extreme Binge Eating</p>
+            <div class="skill-bar skill4">
+                <span class="skill-count">100%</span>
+            </div>
+        </div>
+        <!-- skill 4-->
+       
+
+      </div>
+
+           
+  </div>
+
+       
+    </div>
+  </div>
+
+    <!-- Recommendations Section -->
+    <div class="recommendations" id="recommendations">
+      <h1>Don't worry! we've got you!!</h1>
+      <div class="recommendations__wrapper">
+        <div class="recommendations__card">
+          
+          <div class="recommendations__btn"><button>Get Started</button></div>
+        </div>
+      </div>
+    </div>
+
+   
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/app.js') }}" ></script>
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/main.js') }}" ></script>
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/script.js') }}" ></script>
+  </body>
+</html>     
