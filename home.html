@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+  <head>
+  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B.E Tracker</title>
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='form.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bars.css') }}">
+    <link rel="stylesheet"type= "text/css" href= "{{ url_for('static',filename='multi.css') }}">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Start of Async Drift Code -->
+    <script>
+      "use strict";
+      
+      !function() {
+        var t = window.driftt = window.drift = window.driftt || [];
+        if (!t.init) {
+          if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+          t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+          t.factory = function(e) {
+            return function() {
+              var n = Array.prototype.slice.call(arguments);
+              return n.unshift(e), t.push(n), t;
+            };
+          }, t.methods.forEach(function(e) {
+            t[e] = t.factory(e);
+          }), t.load = function(t) {
+            var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+            var i = document.getElementsByTagName("script")[0];
+            i.parentNode.insertBefore(o, i);
+          };
+        }
+      }();
+      drift.SNIPPET_VERSION = '0.3.1';
+      drift.load('8f3tfecmenkc');
+      </script>
+      <!-- End of Async Drift Code -->
+
+  </head>
+  <body>
+ <!-- Navbar Section -->
+ <nav class="navbar">
+  <div class="navbar__container">
+    <a href="#home" id="navbar__logo">B.E TRACKER</a>
+    <div class="navbar__toggle" id="mobile-menu">
+      <span class="bar"></span>
+       <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    
+    <ul class="navbar__menu">
+      <li class="navbar__item">
+        <a href="#home" class="navbar__links" id="home-page">Home</a>
+      </li>
+      <li class="navbar__item">
+        <a href="#results" class="navbar__links" id="results-page">Results</a>
+      </li>
+      <li class="navbar__item">
+        <a href="#recommendations" class="navbar__links" id="recommendations-page"
+          >Recommendations</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav> 
+<!-- End Navbar Section-->
+
+    <!-- Hero Section -->
+    <div class="bg_img  img1">
+    <div class="hero" id="home">
+    
+      <div class="hero__container">
+        <h1 class="hero__heading">Binge Eating Disorder <span></span></h1>
+        <p class="hero__description"></p>
+
+      <!-- button for log in to pop up -->
+      <button class="start__btn" onclick="getstarted()"><span></span>Get Started</button>   
+
+       
+    <!-- BMI Form-->
+        
+    <div class="bmi-box" id="my__bmi">
+   
+  <h2>BMI Calculator</h2>
+  <p class="text">Height</p>
+  <input type="text" id="h">
+  <p class="text">Weight</p>
+  <input type="text" id="w">
+  <p id="result"></p>
+  
+  <button id="bmi-btn" onclick="BMI()">Calculate</button>
+  <p id="info">Please enter your height (cm) and weight (kg)</p> 
+  <button class="forward__btn" onclick="forward()">Next</button>
+  </div>  
+
+   <!-- Multi-step form -->   
+      <div class="data-box" id="my__data">
+        <header>User Details</header>
+        <div class="progress-bar">    <!-- Step progress bar-->
+           <div class="step">
+              <p>
+                BMI
+              </p>
+              <div class="bullet">
+                 <span>1</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+                Calories
+              </p>
+              <div class="bullet">
+                 <span>2</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+               Calories
+              </p>
+              <div class="bullet">
+                 <span>3</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+           <div class="step">
+              <p>
+                Mood
+              </p>
+              <div class="bullet">
+                 <span>4</span>
+              </div>
+              <div class="check fas fa-check"></div>
+           </div>
+        </div>
+        <div class="form-outer">  
+          <!-- Form Beginning-->          
+           <form action="{{ url_for('predict')}}"method="POST">
+              <div class="page slide-page">
+                 <div class="title">
+                    BMI:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                      PLease Enter your BMI
+                    </div>
+                    <input type="text" name="BMI" placeholder="ENTER BMI" required="required" />
+                 </div>
+                
+              
+                 <div class="field">
+                    <button class="firstNext next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                    Calories Intake:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                       Please enter daily calorie intake
+                    </div>
+                    <input type="text" name="calories" placeholder="Calories Taken" required="required" />
+                 </div>
+                 <div class="field btns">
+                    <button class="prev-1 prev">Previous</button>
+                    <button class="next-1 next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                    Calories Burnt:
+                 </div>
+                 <div class="field">
+                    <div class="label">
+                       Please enter daily calories burnt
+                    </div>
+                    <input type="text" name="calories_burnt" placeholder="Calories Burnt" required="required" />
+                 </div>
+                 <div class="field btns">
+                    <button class="prev-2 prev">Previous</button>
+                    <button class="next-2 next">Next</button>
+                 </div>
+              </div>
+
+              <div class="page">
+                 <div class="title">
+                 Enter Your Stress Level:
+                 </div>
+                 <div class="field">
+                   <div class="label">
+                    <p>100(Low)200 (Mild) 300(High) 400(Extreme)<p>
+                   </div>
+                   <input type="text" name="	Stress Levels" placeholder="Stress Level" required="required" />
+                </div>
+                
+                 <div class="field btns">
+                    <button class="prev-3 prev">Previous</button>
+                    <button type="submit" class="predict__btn" onclick="predict()">Predict</button>
+                 </div>
+              </div>
+           </form>
+           
+        </div>
+     </div>  
+
+
+
+
+
+      </div>
+    </div>
+  </div>  
+
+    <!-- Results Section -->
+    <div class="bg_img  img1">
+    <div class="main" id="results">
+       
+      <div class="main__container">
+                 <!-- LEVELS PROGRESS BARS-->
+       <div class="container">
+        <h2 id="info">Results: {{prediction_text}}</h2>
+
+        <div class="skill">
+            <p>Level 1: Normal </p>
+            <div class="skill-bar skill1">
+                <span class="skill-count">25%</span>
+            </div>
+        </div>
+        <!-- skill 1-->
+        <div class="skill">
+            <p>Level 2: Mild Binge Eating</p>
+            <div class="skill-bar skill2">
+                <span class="skill-count">50%</span>
+            </div>
+        </div>
+        <!-- skill 2-->
+        <div class="skill">
+            <p>Level 3: Binge Eating</p>
+            <div class="skill-bar skill3">
+                <span class="skill-count">75%</span>
+            </div>
+        </div>
+        <!-- skill 3-->
+        <div class="skill">
+            <p>Level 4: Extreme Binge Eating</p>
+            <div class="skill-bar skill4">
+                <span class="skill-count">100%</span>
+            </div>
+        </div>
+        <!-- skill 4-->
+      </div>
+     
+      <button type="submit" class="recommend-btn" onclick="recommend()"><span></span>Recommendations</button>  
+    
+  </div>    
+    </div>
+  </div>
+
+    <!-- Recommendations Section -->
+    <div class="recommendations" id="recommendations">
+      <h1>Don't worry! we've got you!!</h1>
+     <!-- Begin Forum JavaScript Feed Code -->
+<style>
+   .forum_topics_feed {
+      font: 14px Verdana, Arial, Helvetica, sans-serif;
+   }
+   .forum_topics_feed ul {
+      font-size: 13px;
+   }
+   .forum_topics_feed li {
+      padding: 7px 0;
+   }
+   .forum_topics_feed .forum_topic_title {
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 140%;
+   }
+   .forum_topics_feed .forum_topic_desc {
+      color: #999;
+      font-size: 12px;
+      line-height: 140%;
+   }
+   .forum_topics_feed .feed_heading {
+      font-weight: bold;
+   }
+   </style>
+   <div class="forum_topics_feed">
+   <h4 class="feed_heading">View and chat on the forum here:</h4>
+   
+   <div id="forum_topics_list"></div>
+   
+   <script type="text/javascript">
+   <!--
+   function showFeed (threads) {
+      var maxTitleLength = 60;	// maximum length of the title
+      var forum_topics_list = "";
+      var showAsPosts = false;
+      var date_obj = new Date();
+   
+      try {
+         if (document.getElementById('forumFeedJs').src.match('&show=posts')) {
+            showAsPosts = true;
+         }
+      } catch (e) {
+         var allScript = document.getElementsByTagName("script");
+         for (var wtbstart = 0, max = allScript.length; wtbstart < max; wtbstart++) {
+            if(allScript[wtbstart].src.match('&show=posts')) {
+               showAsPosts = true;
+               break;
+            }
+         }
+      }
+   
+      if (typeof(threads) != 'undefined' && threads.length) {
+         // if code is used inside iframe and iframe using sandbox property then set target="_blank" because "_top" not supported on some browsers with Sandbox property.
+         var linkTarget = "_top";
+         if (window.location != window.parent.location) {
+            try {
+               var parentElement = window.frameElement;
+               if(parentElement.sandbox != '') {
+                  linkTarget = "_blank";
+               }
+            } catch (e) {
+               linkTarget = "_blank";
+            }
+         }
+         forum_topics_list += '<ul>';
+   
+         for(i = 0; i < threads.length; i++) {
+            if (threads[i].title.length > maxTitleLength) {
+               threads[i].title = threads[i].title.replace(/<.+?>/gi, ''); // strip HTML to avoid tags chopped in the middle
+               threads[i].title = threads[i].title.substring(0, maxTitleLength) + '...';
+            }
+   
+            var url = threads[i].url;
+   
+            if (showAsPosts) {
+                  url += '?pid=' + threads[i].post.postid;
+            }
+   
+            forum_topics_list += '<li>';
+            forum_topics_list += '<a href="'+ url +'" class="forum_topic_title" target="'+ linkTarget +'">' + threads[i].title + '</a>';
+   
+            if (showAsPosts) {
+                  threads[i].post.message = threads[i].post.message.replace(/<.+?>/g, ' '); // remove HTML
+                  forum_topics_list += '<div class="forum_topic_message">'+ threads[i].post.message +'</div>';
+            }
+            var topic_date;
+            try {
+               if(parseInt(date_obj.getTime()/1000 - threads[i].date) <= 86400){
+                  topic_date = moment(threads[i].date,'X').fromNow();
+               } else if (date_obj.getFullYear() ==   moment(threads[i].date,'X').format('YYYY')){
+                  topic_date = 'on ' + moment(threads[i].date,'X').format('MMM DD');
+               } else{
+                  topic_date = 'on ' + moment(threads[i].date,'X').format('MMM DD, YYYY');
+               }
+            } catch (e) {
+               topic_date = timeConverter(date_obj, threads[i].date);
+            }
+            forum_topics_list += '<div class="forum_topic_desc">Posted by ' + threads[i].author + ' ' + topic_date + '</div>';
+            forum_topics_list += '</li>';
+         }
+   
+         forum_topics_list += '</ul>';
+      } else {
+         forum_topics_list += 'There are currently no topics to display.';
+      }
+   
+      // If code used more than one time on the same page then set topic list into related div.
+      var topicsContainer = document.querySelectorAll('#forum_topics_list');
+      if(topicsContainer.length > 1) {
+         for (var index = 0; index < topicsContainer.length; index++) {
+            if(!topicsContainer[index].innerHTML) {
+               topicsContainer[index].innerHTML = forum_topics_list;
+            }
+         }
+      } else {
+         document.getElementById('forum_topics_list').innerHTML = forum_topics_list;
+      }
+   }
+   
+   /* This function is used to convert unix time stamp into full date. */
+   function timeConverter(date_obj, timestamp){
+      var time;
+      var postTime = timestamp;
+      var post_time = new Date(postTime*1000);
+      var secondsPast = (date_obj.getTime() - post_time.getTime()) / 1000;
+      if(secondsPast < 60){
+         time = parseInt(secondsPast) + ' just now';
+      } else if(secondsPast < 3600) {
+         time = parseInt(secondsPast/60);
+         if(time == 1) {
+            time = time + " minute ago";
+         } else {
+            time = time + " minutes ago";
+         }
+      } else if(secondsPast <= 86400) {
+         time = parseInt(secondsPast/3600);
+         if(time == 1) {
+            time = time + " hour ago";
+         } else {
+            time = time + " hours ago";
+         }
+      } else {
+         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+         var year = post_time.getFullYear();
+         var month = months[post_time.getMonth()];
+         var date = post_time.getDate();
+         var hour = post_time.getHours();
+   
+         // Get current year;
+         var current_year = date_obj.getFullYear();
+   
+         time = 'on ' + month + ' ' + date;
+         // Show current year only if post created year is different with current year.
+         if(year != current_year) {
+            time = time + ' ' + year;
+         }
+      }
+      return time;
+   }
+   
+   -->
+   </script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js" defer></script>
+   <script type="text/javascript" src="https://otienorose.discussion.community/external?version=2&type=js&callback=showFeed&forumids=893408&qty=5&show=top&period=month" id="forumFeedJs" defer></script>
+   </div>
+   <!-- End Forum JavaScript Feed Code -->
+   
+      <div class="recommendations__wrapper">
+        <div class="recommendations__card">
+         <div class="form-box" id="my__form">
+      
+            <div class="button-box">
+                <div id="btn"></div>
+            <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+           
+            <form id="login" class="input-grp" method="POST">                                        <!--log in -->
+                <input type="text" class="input-field" placeholder="User Id" name="username" required>
+                <input type="password" class="input-field" placeholder="Password" name="password" required>
+               
+               <div class="checkbox-container">
+                <input type="checkbox" id="cb1">
+                <label for="cb1">Remember Password</label>
+              </div>
+               
+            <button type="submit" class="submit-btn" onclick="Continue()" >Log In</button>  
+       
+            </form>
+            <form id="register" class="input-grp"  method="POST">                                       <!-- Register Form-->
+                <input type="text" class="input-field" placeholder="username" name="username" required>
+                <input type="email" class="input-field" placeholder="Email Id" name="email" required>
+                <input type="password" class="input-field" placeholder="Password" name="password" required>
+               
+                <div class="checkbox-container">
+                  <input type="checkbox" id="cb1">
+                  <label for="cb1">I agree to the terms & conditions</label>
+                </div>
+                    <button type="submit" class="submit-btn">Register</button>
+            </form>
+             
+            </div>
+          <div>
+             <!-- Begin Forum JavaScript Feed Code -->
+
+</div>
+        
+        </div>
+      </div>
+    </div>
+
+   
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/app.js') }}" ></script>
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/main.js') }}" ></script>
+    <script type = "text/javascript" 
+    src = "{{ url_for('static', filename = 'js/script.js') }}" ></script>
+  </body>
+</html>     
